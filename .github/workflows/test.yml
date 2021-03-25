@@ -26,14 +26,9 @@ jobs:
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
 
     steps:
-      - name: Check secret
-        env:
-          SOME_SECRET: ${{ secrets.STORE_MANAGER_POSTGRES_HOST }}
-        run: |
-            echo $SOME_SECRET
       - name: Set enviroment variables
         run: |
-            echo "STORE_MANAGER_POSTGRES_HOST=localhost" >> $GITHUB_ENV
+            echo "STORE_MANAGER_POSTGRES_HOST=${{ env.STORE_MANAGER_POSTGRES_HOST }}" >> $GITHUB_ENV
             echo "STORE_MANAGER_POSTGRES_USER=postgres" >> $GITHUB_ENV
             echo "STORE_MANAGER_POSTGRES_PASSWORD=postgres" >> $GITHUB_ENV
       - uses: actions/checkout@v1
