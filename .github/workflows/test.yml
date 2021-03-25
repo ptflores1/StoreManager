@@ -25,16 +25,16 @@ jobs:
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
 
     steps:
-      - shell: bash
+      - name: Check secret
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
         if: ${{env.SOME_SECRET}} == "somesecretvalue"
         run: echo "somesecretvalue"
-        if: ${{env.SOME_SECRET}} == "somesecretvalue2"
-        run: echo "somesecretvalue2"
-        run: |
-          echo $SOME_SECRET
-          printenv
+        # if: ${{env.SOME_SECRET}} == "somesecretvalue2"
+        # run: echo "somesecretvalue2"
+        # run: |
+          # echo $SOME_SECRET
+          # printenv
       - name: Set enviroment variables
         run: |
             echo "STORE_MANAGER_POSTGRES_HOST=localhost" >> $GITHUB_ENV
