@@ -27,9 +27,11 @@ jobs:
     steps:
       - name: Set enviroment variables
         run: |
-            echo "STORE_MANAGER_POSTGRES_HOST=postgres" >> $GITHUB_ENV
+            echo "STORE_MANAGER_POSTGRES_HOST=localhost" >> $GITHUB_ENV
             echo "STORE_MANAGER_POSTGRES_USER=${{secrets.STORE_MANAGER_POSTGRES_USER}}" >> $GITHUB_ENV
             echo "STORE_MANAGER_POSTGRES_PASSWORD=${{secrets.STORE_MANAGER_POSTGRES_PASSWORD}}" >> $GITHUB_ENV
+
+      - name: Echo random var
       - uses: actions/checkout@v1
       - uses: ruby/setup-ruby@v1
         with:
