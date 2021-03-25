@@ -30,6 +30,7 @@ jobs:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
         run: |
           echo $SOME_SECRET
+          printenv
       - name: Set enviroment variables
         run: |
             echo "STORE_MANAGER_POSTGRES_HOST=localhost" >> $GITHUB_ENV
