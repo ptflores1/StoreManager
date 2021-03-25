@@ -25,14 +25,13 @@ jobs:
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
 
     steps:
+      - name:
+        run: echo "${{ secrets.STORE_MANAGER_POSTGRES_HOST }}"
       - name: Set enviroment variables
         run: |
             echo "STORE_MANAGER_POSTGRES_HOST=localhost" >> $GITHUB_ENV
             echo "STORE_MANAGER_POSTGRES_USER=postgres" >> $GITHUB_ENV
             echo "STORE_MANAGER_POSTGRES_PASSWORD=postgres" >> $GITHUB_ENV
-      - name: Check secret
-        if: ${{ secrets.STORE_MANAGER_DATABASE_HOST }} == "localhost"
-        run: echo "Are equal"
       - uses: actions/checkout@v1
       - uses: ruby/setup-ruby@v1
         with:
