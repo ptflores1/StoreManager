@@ -3,6 +3,7 @@ env:
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_DB: postgres
+  SOME_OTHER_SECRET: ${{ secrets.STORE_MANAGER_DATABASE_HOST }}
 
 name: Ruby Tests
 
@@ -28,7 +29,6 @@ jobs:
       - name: Check secret
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
-          SOME_OTHER_SECRET: ${{ secrets.STORE_MANAGER_DATABASE_HOST }}
         run: |
             echo $SOME_SECRET
             echo $SOME_OTHER_SECRET
