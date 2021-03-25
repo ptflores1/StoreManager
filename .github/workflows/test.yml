@@ -28,7 +28,7 @@ jobs:
       - name: Check secret
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
-        if: ${{env.SOME_SECRET  == "somesecretvalue2"}}
+        if: ${{env.SOME_SECRET  == 'somesecretvalue2'}}
         run: echo "somesecretvalue2"
       - name: Set enviroment variables
         run: |
