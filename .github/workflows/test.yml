@@ -26,10 +26,10 @@ jobs:
 
     steps:
       - name: Set enviroment variables
-          run: |
-              echo "STORE_MANAGER_POSTGRES_HOST=${{secrets.STORE_MANAGER_POSTGRES_HOST}}" >> $GITHUB_ENV
-              echo "STORE_MANAGER_POSTGRES_USER=${{secrets.STORE_MANAGER_POSTGRES_USER}}" >> $GITHUB_ENV
-              echo "STORE_MANAGER_POSTGRES_PASSWORD=${{secrets.STORE_MANAGER_POSTGRES_PASSWORD}}" >> $GITHUB_ENV
+        run: |
+            echo "STORE_MANAGER_POSTGRES_HOST=${{secrets.STORE_MANAGER_POSTGRES_HOST}}" >> $GITHUB_ENV
+            echo "STORE_MANAGER_POSTGRES_USER=${{secrets.STORE_MANAGER_POSTGRES_USER}}" >> $GITHUB_ENV
+            echo "STORE_MANAGER_POSTGRES_PASSWORD=${{secrets.STORE_MANAGER_POSTGRES_PASSWORD}}" >> $GITHUB_ENV
       - uses: actions/checkout@v1
       - uses: ruby/setup-ruby@v1
         with:
