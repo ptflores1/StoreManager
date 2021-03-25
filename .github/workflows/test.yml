@@ -25,8 +25,11 @@ jobs:
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
 
     steps:
-      - name:
-        run: echo "${{ secrets.STORE_MANAGER_POSTGRES_HOST }}"
+      - shell: bash
+        env:
+          SOME_SECRET: ${{ secrets.STORE_MANAGER_POSTGRES_HOST }}
+        run: |
+        echo "$SOME_SECRET"
       - name: Set enviroment variables
         run: |
             echo "STORE_MANAGER_POSTGRES_HOST=localhost" >> $GITHUB_ENV
