@@ -31,7 +31,7 @@ jobs:
             echo "STORE_MANAGER_POSTGRES_USER=postgres" >> $GITHUB_ENV
             echo "STORE_MANAGER_POSTGRES_PASSWORD=postgres" >> $GITHUB_ENV
       - name: Check secret
-        if: secrets.STORE_MANAGER_DATABASE_HOST == "localhost"
+        if: ${{ secrets.STORE_MANAGER_DATABASE_HOST }} == "localhost"
         run: echo "Are equal"
       - uses: actions/checkout@v1
       - uses: ruby/setup-ruby@v1
