@@ -28,7 +28,7 @@ jobs:
       - name: Check secret
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
-          SOME_OTHER_SECRET: ${{ secrets.SOME_OTHER_SECRET }}
+          SOME_OTHER_SECRET: ${{ secrets.STORE_MANAGER_DATABASE_HOST }}
         run: |
             echo $SOME_SECRET
             echo $SOME_OTHER_SECRET
