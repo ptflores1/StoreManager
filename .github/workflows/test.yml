@@ -28,13 +28,8 @@ jobs:
       - name: Check secret
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
-        if: ${{env.SOME_SECRET}} == "somesecretvalue2"
+        if: ${{env.SOME_SECRET  == "somesecretvalue2"}}
         run: echo "somesecretvalue2"
-        # if: ${{env.SOME_SECRET}} == "somesecretvalue2"
-        # run: echo "somesecretvalue2"
-        # run: |
-          # echo $SOME_SECRET
-          # printenv
       - name: Set enviroment variables
         run: |
             echo "STORE_MANAGER_POSTGRES_HOST=localhost" >> $GITHUB_ENV
