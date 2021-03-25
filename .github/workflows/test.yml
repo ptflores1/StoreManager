@@ -1,8 +1,7 @@
 env:
   RUBY_VERSION: 3.0
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
-  POSTGRES_DB: postgres
+  POSTGRES_USER: ${{ secrets.STORE_MANAGER_POSTGRES_USER }}
+  POSTGRES_PASSWORD: ${{ secrets.STORE_MANAGER_POSTGRES_PASSWORD }}
   STORE_MANAGER_POSTGRES_HOST: ${{ secrets.STORE_MANAGER_POSTGRES_HOST }}
 
 name: Ruby Tests
@@ -29,8 +28,8 @@ jobs:
       - name: Set enviroment variables
         run: |
             echo "STORE_MANAGER_POSTGRES_HOST=${{ env.STORE_MANAGER_POSTGRES_HOST }}" >> $GITHUB_ENV
-            echo "STORE_MANAGER_POSTGRES_USER=postgres" >> $GITHUB_ENV
-            echo "STORE_MANAGER_POSTGRES_PASSWORD=postgres" >> $GITHUB_ENV
+            echo "STORE_MANAGER_POSTGRES_USER=${{ env.STORE_MANAGER_POSTGRES_USER }}" >> $GITHUB_ENV
+            echo "STORE_MANAGER_POSTGRES_PASSWORD=${{ env.STORE_MANAGER_POSTGRES_PASSWORD }}" >> $GITHUB_ENV
       - uses: actions/checkout@v1
       - uses: ruby/setup-ruby@v1
         with:
