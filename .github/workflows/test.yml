@@ -3,7 +3,7 @@ env:
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_DB: postgres
-  SOME_OTHER_SECRET: ${{ secrets.STORE_MANAGER_DATABASE_HOST }}
+  STORE_MANAGER_POSTGRES_HOST: ${{ secrets.STORE_MANAGER_POSTGRES_HOST }}
 
 name: Ruby Tests
 
@@ -28,10 +28,9 @@ jobs:
     steps:
       - name: Check secret
         env:
-          SOME_SECRET: ${{ secrets.SOME_SECRET }}
+          SOME_SECRET: ${{ secrets.STORE_MANAGER_POSTGRES_HOST }}
         run: |
             echo $SOME_SECRET
-            echo $SOME_OTHER_SECRET
       - name: Set enviroment variables
         run: |
             echo "STORE_MANAGER_POSTGRES_HOST=localhost" >> $GITHUB_ENV
