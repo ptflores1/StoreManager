@@ -27,7 +27,7 @@ jobs:
     steps:
       - shell: bash
         env:
-          SOME_SECRET: ${{ secrets.GITHUB_TOKEN }}
+          SOME_SECRET: ${{ secrets.STORE_MANAGER_POSTGRES_HOST }}
         run: |
           echo $SOME_SECRET
       - name: Set enviroment variables
