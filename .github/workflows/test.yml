@@ -27,10 +27,9 @@ jobs:
     steps:
       - shell: bash
         env:
-          SOME_SECRET: ${{ secrets.STORE_MANAGER_POSTGRES_HOST }}
+          SOME_SECRET: ${{ secrets.SOME_SECRET }}
         run: |
           echo $SOME_SECRET
-          echo ${{ Object.keys(secrets) }}
       - name: Set enviroment variables
         run: |
             echo "STORE_MANAGER_POSTGRES_HOST=localhost" >> $GITHUB_ENV
