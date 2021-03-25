@@ -28,7 +28,10 @@ jobs:
       - name: Check secret
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
-        run: echo $SOME_SECRET
+          SOME_OTHER_SECRET: ${{ secrets.SOME_OTHER_SECRET }}
+        run: |
+            echo $SOME_SECRET
+            echo $SOME_OTHER_SECRET
       - name: Set enviroment variables
         run: |
             echo "STORE_MANAGER_POSTGRES_HOST=localhost" >> $GITHUB_ENV
