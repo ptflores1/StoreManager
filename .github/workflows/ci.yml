@@ -13,6 +13,21 @@ on:
     branches: [ dev ]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundler install
+      - name: Run linters
+        run: |
+          bundle exec rubocop
+
   test:
     runs-on: ubuntu-latest
     services:
