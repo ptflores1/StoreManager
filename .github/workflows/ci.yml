@@ -4,7 +4,7 @@ env:
   STORE_MANAGER_POSTGRES_USER: ${{ secrets.STORE_MANAGER_POSTGRES_USER }}
   STORE_MANAGER_POSTGRES_PASSWORD: ${{ secrets.STORE_MANAGER_POSTGRES_PASSWORD }}
 
-name: Ruby Tests
+name: CI / CD
 
 on:
   push:
