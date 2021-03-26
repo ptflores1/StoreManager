@@ -29,8 +29,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 
-
-  gem 'reek', require: false
+  gem "reek", require: false
   # Automatic Ruby code style checking tool. Aims to enforce
   # the community-driven Ruby Style Guide.
   gem "rubocop", require: false
