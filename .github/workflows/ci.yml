@@ -1,0 +1,78 @@
+env:
+  RUBY_VERSION: 3.0
+  STORE_MANAGER_POSTGRES_HOST: ${{ secrets.STORE_MANAGER_POSTGRES_HOST }}
+  STORE_MANAGER_POSTGRES_USER: ${{ secrets.STORE_MANAGER_POSTGRES_USER }}
+  STORE_MANAGER_POSTGRES_PASSWORD: ${{ secrets.STORE_MANAGER_POSTGRES_PASSWORD }}
+
+name: CI / CD
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundler install
+      - name: Run linters
+        run: |
+          bundle exec rubocop
+          bundle exec reek
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+        - 5432:5432
+        env:
+          POSTGRES_USER: ${{ env.STORE_MANAGER_POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.STORE_MANAGER_POSTGRES_PASSWORD }}
+
+    steps:
+      - name: Set enviroment variables
+        run: |
+            echo "STORE_MANAGER_POSTGRES_HOST=${{ env.STORE_MANAGER_POSTGRES_HOST }}" >> $GITHUB_ENV
+            echo "STORE_MANAGER_POSTGRES_USER=${{ env.STORE_MANAGER_POSTGRES_USER }}" >> $GITHUB_ENV
+            echo "STORE_MANAGER_POSTGRES_PASSWORD=${{ env.STORE_MANAGER_POSTGRES_PASSWORD }}" >> $GITHUB_ENV
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+      - name: Install psql database client
+        run: sudo apt-get install libpq-dev
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundler install
+      - name: Create database
+        run: |
+          bundler exec rails db:create RAILS_ENV=test
+          bundler exec rails db:migrate RAILS_ENV=test
+      - name: Run tests
+        run: bundler exec rake
+  
+  deploy:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    if: ${{github.event_name == 'push'}}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "storemanagerdev"
+          heroku_email: "ptflores1@uc.cl"
+          usedocker: true
